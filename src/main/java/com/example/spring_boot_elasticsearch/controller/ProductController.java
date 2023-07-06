@@ -61,4 +61,10 @@ public class ProductController {
         }
         return productsLis;
     }
+
+    @GetMapping("/fuzzysearch/{fieldname}")
+    public List<Products> fuzzySearch(@PathVariable String fieldname) throws IOException {
+        SearchResponse<Products> productsSearchResponse = elasticSearchService.fuzzySearch(fieldname);
+        return getProductsList(productsSearchResponse);
+    }
 }
